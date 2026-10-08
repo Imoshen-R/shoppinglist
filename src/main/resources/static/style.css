@@ -1,0 +1,6 @@
+body { font-family: system-ui, sans-serif; margin: 2rem auto; padding: 0 1rem; max-width: 48rem; line-height: 1.5; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #aaa; padding: .5rem; text-align: left; }
+form { display: grid; gap: .5rem; max-width: 24rem; }
+input, button { font: inherit; padding: .5rem; }
+.error { color: #a40000; }
