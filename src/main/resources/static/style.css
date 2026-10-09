@@ -4,3 +4,31 @@ th, td { border: 1px solid #aaa; padding: .5rem; text-align: left; }
 form { display: grid; gap: .5rem; max-width: 24rem; }
 input, button { font: inherit; padding: .5rem; }
 .error { color: #a40000; }
+
+ul {display: flex;gap: 2rem}
+
+
+@layer presentation {
+	body {
+    background: SlateGrey;
+    display: grid;
+    height: 100vh;
+    place-items: center;
+  }
+  
+  ul {
+    border: 1px solid black;
+    border-radius: 8px;
+    padding-inline: 0;
+    padding: 1rem;
+    background: khaki;
+  }
+  
+  li {
+    list-style: none;
+    
+    a {
+      color: black;
+    }
+  }
+}

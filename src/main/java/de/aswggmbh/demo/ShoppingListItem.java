@@ -18,7 +18,7 @@ public class ShoppingListItem {
     @Size(max = 100, message = "Der Name darf höchstens 100 Zeichen enthalten.")
     private String name;
 
-    @Min(value = 0, message = "Der Bedarf darf nicht negativ sein.")
+    @Min(value = 1, message = "Der Bedarf darf nicht negativ sein.")
     private int demand;
 
     @Min(value = 0, message = "Der Vorrat darf nicht negativ sein.")

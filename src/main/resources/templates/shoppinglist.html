@@ -1,40 +1,62 @@
 <!doctype html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Einkaufsliste</title>
-  <link rel="stylesheet" th:href="@{/style.css}" href="../static/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Einkaufsliste</title>
+<link rel="stylesheet" th:href="@{/style.css}"
+	href="../static/style.css">
 </head>
 <body>
-<main>
-  <h1>Einkaufsliste</h1>
-  <table>
-    <caption>Gespeicherte Artikel</caption>
-    <thead><tr><th scope="col">Name</th><th scope="col">Bedarf</th><th scope="col">Vorrat</th></tr></thead>
-    <tbody>
-      <tr th:each="item : ${shoppingList}">
-        <td th:text="${item.name}">Brot</td>
-        <td th:text="${item.demand}">2</td>
-        <td th:text="${item.supply}">0</td>
-      </tr>
-      <tr th:if="${#lists.isEmpty(shoppingList)}"><td colspan="3">Noch keine Artikel.</td></tr>
-    </tbody>
-  </table>
-  <h2>Artikel hinzufügen</h2>
-  <form method="post" th:action="@{/}" th:object="${shoppingListItem}">
-    <label for="name">Name</label>
-    <input id="name" th:field="*{name}" maxlength="100" required aria-describedby="name-error">
-    <span id="name-error" class="error" th:errors="*{name}"></span>
-    <label for="demand">Bedarf</label>
-    <input id="demand" type="number" th:field="*{demand}" min="0" required aria-describedby="demand-error">
-    <span id="demand-error" class="error" th:errors="*{demand}"></span>
-    <label for="supply">Vorrat</label>
+	<nav>
+		<a href=#list>Einkaufsliste</a> <a href=#add>Artikel hinzufügen</a>
+	</nav>
+	<main>
+		<ul>
+			<li><a href=#list>Einkaufsliste</a></li>
+			<li><a href=#add>Artikel hinzufügen</a></li>
+		</ul>
+		<h1 id="list">Einkaufsliste</h1>
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">+</th>
+					<th scope="col">-</th>
+					<th scope="col">Name</th>
+					<th scope="col">Bedarf</th>
+					<!--<th scope="col">Vorrat</th>  -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item : ${shoppingList}">
+					<button type="submit">+</button>
+					<td th:text="${item.name}">Brot</td>
+					<td th:text="${item.demand}">2</td>
+					<!--    <td th:text="${item.supply}">0</td>  -->
+				</tr>
+				<tr th:if="${#lists.isEmpty(shoppingList)}">
+					<td colspan="3">Noch keine Artikel.</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2 id="add">Artikel hinzufügen</h2>
+		<form method="post" th:action="@{/}" th:object="${shoppingListItem}">
+			<label for="name">Name</label> <input id="name" th:field="*{name}"
+				maxlength="100" required aria-describedby="name-error"> <span
+				id="name-error" class="error" th:errors="*{name}"></span> <label
+				for="demand">Bedarf</label> <input id="demand" type="number"
+				th:field="*{demand}" min="1" required
+				aria-describedby="demand-error"> <span id="demand-error"
+				class="error" th:errors="*{demand}"></span>
+			<!--  <label for="supply">Vorrat</label>
     <input id="supply" type="number" th:field="*{supply}" min="0" required aria-describedby="supply-error">
-    <span id="supply-error" class="error" th:errors="*{supply}"></span>
-    <button type="submit">Hinzufügen</button>
-  </form>
-  <p>Das getrennte Servlet-Beispiel liefert unter <a href="/list">/list</a> eine feste JSON-Antwort.</p>
-</main>
+    <span id="supply-error" class="error" th:errors="*{supply}"></span> -->
+			<button type="submit">+</button>
+		</form>
+		<p>
+			Das getrennte Servlet-Beispiel liefert unter <a href="/list">/list</a>
+			eine feste JSON-Antwort.
+		</p>
+	</main>
 </body>
 </html>
