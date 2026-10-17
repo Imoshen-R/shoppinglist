@@ -25,24 +25,24 @@
 			<tbody>
 				<tr th:each="item : ${shoppingList}">
 					<td>
-						<form method="post" th:action="@{/check/{id}(id=${item.id})}">
-							<button type="submit">&#x2714</button>
+						<form method="post" th:action="@{/check/{id}(id=${item.id})}" th:unless="${item.completed}">
+							<button type="submit" aria-label="Als erledigt markieren">&#x2714</button>
 						</form>
-						<form method="post" th:action="@{/delete/{id}(id=${item.id})}">
-							<button type="submit">&#x1F5D1</button>
+						<form method="post" th:action="@{/delete/{id}(id=${item.id})}" th:if="${item.completed}">
+							<button type="submit" aria-label="Endgültig löschen">&#x1F5D1</button>
 						</form>
-						<form method="post" th:action="@{/reset/{id}(id=${item.id})}">
-							<button type="submit">&#x21BA</button>
+						<form method="post" th:action="@{/reset/{id}(id=${item.id})}" th:if="${item.completed}">
+							<button type="submit" aria-label="Wiederherstellen">&#x21BA</button>
 						</form>
 					</td>
 					<td th:text="${item.name}">Brot</td>
 					<td th:text="${item.demand}">2</td>
 					<td>
-						<form method="post" th:action="@{/item/{id}/decrease(id=${item.id})}">
-							<button type="submit">-</button>
+						<form method="post" th:action="@{/item/{id}/decrease(id=${item.id})}" th:unless="${item.completed}">
+							<button type="submit" aria-label="Menge um eins reduzieren">-</button>
 						</form>
-						<form method="post" th:action="@{/item/{id}/increase(id=${item.id})}">
-							<button type="submit">+</button>
+						<form method="post" th:action="@{/item/{id}/increase(id=${item.id})}" th:unless="${item.completed}">
+							<button type="submit" aria-label="Menge um eins erhöhen">+</button>
 						</form>
 					</td>
 				</tr>
