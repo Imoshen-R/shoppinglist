@@ -53,6 +53,15 @@ Dieses Projekt basiert auf dem Starter-Template **`WEB-II-3-Shoppinglist.zip`** 
   - Buttons und Eingabefelder haben eine Mindestgröße für Touch-Bedienung.
   - Das Formular bricht auf schmalen Bildschirmen sauber um.
   - Alle interaktiven Elemente besitzen einen sichtbaren Tastaturfokus (`:focus-visible`) und `aria-label`-Attribute für Screenreader.
+ 
+### US-06: Einfache Anpassung der Menge
+* **Als:** Smartphone-Nutzer  
+* **Möchte ich:** die Menge von Artikeln auf meiner Einkaufsliste einfach erhöhen und verringern können 
+* **Damit:** ich komfortabel auch einhändig Änderungen vornehmen kann
+* **Akzeptanzkriterien:**
+  - Buttons und Eingabefelder haben eine Mindestgröße für Touch-Bedienung.
+  - Das Formular bricht auf schmalen Bildschirmen sauber um.
+  - Alle interaktiven Elemente besitzen einen sichtbaren Tastaturfokus (`:focus-visible`) und `aria-label`-Attribute für Screenreader.
 
 
 ## 2. Features & Priorisierung (MoSCoW)
@@ -66,9 +75,10 @@ Dieses Projekt basiert auf dem Starter-Template **`WEB-II-3-Shoppinglist.zip`** 
 ### Should-Have (Gute Usability & Stabilität)
 * **[F-05] Mobile-First CSS:** Responsives Layout basierend auf Flexbox.
 * **[F-06] Barrierefreie Bedienelemente:** Kontrastreicher Tastaturfokus und Screenreader-Labels für Symbol-Buttons.
+* **[F-07] Anpassungen der Artikelmenge:** Buttons, die auf Mobilgeräten gut bedienbar sind und für jeden Artikel der Liste eine Anpassung der Menge umsetzen.
 
 ### Could-Have (Optionale Erweiterung)
-* **[F-07] Schneller Filter:** Umschalter in der Ansicht, um erledigte/durchgestrichene Artikel bei Bedarf temporär auszublenden.
+* **[F-08] Schneller Filter:** Umschalter in der Ansicht, um erledigte/durchgestrichene Artikel bei Bedarf temporär auszublenden.
 
 
 ## 3. Design- und Architektur-Entscheidungen
