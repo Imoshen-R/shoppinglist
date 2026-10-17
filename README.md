@@ -53,7 +53,17 @@ Dieses Projekt basiert auf dem Starter-Template **`WEB-II-3-Shoppinglist.zip`** 
   - Buttons und Eingabefelder haben eine Mindestgröße für Touch-Bedienung.
   - Das Formular bricht auf schmalen Bildschirmen sauber um.
   - Alle interaktiven Elemente besitzen einen sichtbaren Tastaturfokus (`:focus-visible`) und `aria-label`-Attribute für Screenreader.
-
+ 
+### US-06: Schnelle Mengenanpassung und Statuswechsel
+- **Als:** Smartphone-Nutzer im Supermarkt  
+- **Möchte ich:** die Menge von Artikeln mit einem Tippen schrittweise erhöhen oder verringern können,  
+- **Damit:** ich die Liste einhändig bedienen kann und keine Tipparbeit für Zahlen nötig ist.
+- **Akzeptanzkriterien:**
+  - Über einen Plus-Button (`+`) wird der Bedarf (`demand`) um 1 erhöht.
+  - Über einen Minus-Button (`-`) wird der Bedarf (`demand`) um 1 verringert.
+  - Fällt die Menge durch das Dekrementieren auf 0, wird der Artikel automatisch als erledigt markiert (visuell durchgestrichen).
+  - Wird bei einem bereits erledigten (durchgestrichenen) Artikel das Minus (`-`) betätigt, wird er endgültig aus der Liste gelöscht.
+  - Wird bei einem bereits erledigten Artikel das Plus (`+`) betätigt, wird er wiederhergestellt (Status offen, Menge 1).
 
 ## 2. Features & Priorisierung (MoSCoW)
 
@@ -66,9 +76,10 @@ Dieses Projekt basiert auf dem Starter-Template **`WEB-II-3-Shoppinglist.zip`** 
 ### Should-Have (Gute Usability & Stabilität)
 * **[F-05] Mobile-First CSS:** Responsives Layout basierend auf Flexbox.
 * **[F-06] Barrierefreie Bedienelemente:** Kontrastreicher Tastaturfokus und Screenreader-Labels für Symbol-Buttons.
+* **[F-07] Schnellanpassung der Artikelmenge:** Touch-optimierte Stepper-Buttons (`+` / `-`) je Listeneintrag mit automatischer Status-Koppelung (Erledigen bei 0, Reaktivieren/Löschen bei erledigten Artikeln).
 
 ### Could-Have (Optionale Erweiterung)
-* **[F-07] Schneller Filter:** Umschalter in der Ansicht, um erledigte/durchgestrichene Artikel bei Bedarf temporär auszublenden.
+* **[F-08] Schneller Filter:** Umschalter in der Ansicht, um erledigte/durchgestrichene Artikel bei Bedarf temporär auszublenden.
 
 
 ## 3. Design- und Architektur-Entscheidungen
