@@ -12,10 +12,6 @@
 		<a href=#list>Einkaufsliste</a> <a href=#add>Artikel hinzufügen</a>
 	</nav>
 	<main>
-		<ul>
-			<li><a href=#list>Einkaufsliste</a></li>
-			<li><a href=#add>Artikel hinzufügen</a></li>
-		</ul>
 		<h1 id="list">Einkaufsliste</h1>
 		<table>
 			<thead>
@@ -28,10 +24,27 @@
 			</thead>
 			<tbody>
 				<tr th:each="item : ${shoppingList}">
-					<td><button type="submit">&#x2714</button><button type="submit">&#x1F5D1</button> <button type="submit">&#x21BA</button> </td>
+					<td>
+						<form method="post" th:action="@{/check/{id}(id=${item.id})}">
+							<button type="submit">&#x2714</button>
+						</form>
+						<form method="post" th:action="@{/delete/{id}(id=${item.id})}">
+							<button type="submit">&#x1F5D1</button>
+						</form>
+						<form method="post" th:action="@{/reset/{id}(id=${item.id})}">
+							<button type="submit">&#x21BA</button>
+						</form>
+					</td>
 					<td th:text="${item.name}">Brot</td>
 					<td th:text="${item.demand}">2</td>
-					<td><button type="submit">-</button><button type="submit">+</button></td>
+					<td>
+						<form method="post" th:action="@{/item/{id}/decrease(id=${item.id})}">
+							<button type="submit">-</button>
+						</form>
+						<form method="post" th:action="@{/item/{id}/increase(id=${item.id})}">
+							<button type="submit">+</button>
+						</form>
+					</td>
 				</tr>
 				<tr th:if="${#lists.isEmpty(shoppingList)}">
 					<td colspan="4">Kein Einkauf notwendig &#x1F389</td>
@@ -47,7 +60,7 @@
 				th:field="*{demand}" min="1" required
 				aria-describedby="demand-error"> <span id="demand-error"
 				class="error" th:errors="*{demand}"></span>
-			<button type="submit">+</button>
+			<button type="submit">Hinzufügen</button>
 		</form>
 		<p>
 			Das getrennte Servlet-Beispiel liefert unter <a href="/list">/list</a>

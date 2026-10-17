@@ -16,7 +16,7 @@ ul {display: flex;gap: 2rem}
     place-items: center;
   }
   
-  ul {
+  nav {
     border: 1px solid black;
     border-radius: 8px;
     padding-inline: 0;

@@ -22,7 +22,7 @@ public class ShoppingListController {
 
     @InitBinder("shoppingListItem")
     public void allowedFields(WebDataBinder binder) {
-        binder.setAllowedFields("name", "demand", "supply");
+        binder.setAllowedFields("name", "demand");
     }
 
     @GetMapping
