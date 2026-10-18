@@ -42,7 +42,7 @@ public class ShoppingListController {
 			return "shoppinglist";
 		}
 		repository.save(item);
-		return "redirect:/";
+		return "redirect:/#add";
 	}
 
 	@PostMapping("/delete/{id}")
@@ -57,7 +57,7 @@ public class ShoppingListController {
 			item.setCompleted(true);
 			repository.save(item);
 		});
-		return "redirect:/";
+		return "redirect:/#item-" + id;
 	}
 
 	@PostMapping("/reset/{id}")
@@ -66,7 +66,7 @@ public class ShoppingListController {
 			item.setCompleted(false);
 			repository.save(item);
 		});
-		return "redirect:/";
+		return "redirect:/#item-" + id;
 	}
 
 	@PostMapping("/item/{id}/increase")
@@ -75,7 +75,7 @@ public class ShoppingListController {
 			item.setDemand(item.getDemand() + 1);
 			repository.save(item);
 		});
-		return "redirect:/";
+		return "redirect:/#item-" + id;
 	}
 
 	@PostMapping("/item/{id}/decrease")
@@ -88,6 +88,6 @@ public class ShoppingListController {
 			}
 			repository.save(item);
 		});
-		return "redirect:/";
+		return "redirect:/#item-" + id;
 	}
 }

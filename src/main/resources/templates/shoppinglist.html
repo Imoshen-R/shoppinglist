@@ -23,7 +23,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="item : ${shoppingList}">
+				<tr th:each="item : ${shoppingList}" th:id="'item-' + ${item.id}">
 					<td>
 						<form method="post" th:action="@{/check/{id}(id=${item.id})}" th:unless="${item.completed}">
 							<button type="submit" aria-label="Als erledigt markieren">&#x2714</button>
@@ -64,7 +64,7 @@
 		</form>
 	</main>
 	<nav>
-		<a href=#list>Zurück zur Liste</a>
+		<a href=#list>Zurück zum Listenanfang</a>
 	</nav>
 </body>
 </html>

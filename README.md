@@ -139,3 +139,13 @@ Dieses Projekt basiert auf dem Starter-Template **`WEB-II-3-Shoppinglist.zip`** 
   - Die Media Query `@media (min-width: 35rem)` adressiert ausschließlich `form.add`, um das Formular ab 35 rem Breite von `column` auf `row` umzuschalten, während die Tabellenformulare unverändert bleiben.
   - Der globale Box-Modell-Reset (`*, *::before, *::after { box-sizing: border-box; }`) stellt sicher, dass Innenabstände (`padding`) und Rahmen (`border`) nicht zur definierten Elementbreite addiert werden.
   - Alle interaktiven Elemente erhalten über `a:focus-visible, button:focus-visible, input:focus-visible` eine kontrastreiche Umrandung (`outline: 3px solid #174b7a; outline-offset: 2px;`), um die Barrierefreiheit für Tastaturnutzer ohne störende Maus-Klickränder sicherzustellen.
+
+### 4.5 Scroll-Stabilität via URI-Fragmente und CSS :target (Pragmatischer SSR-Kompromiss)
+* **Problem:** Beim klassischen Post-Redirect-Get-Muster (PRG) fordert der Browser das Dokument nach jeder Serveraktion (`POST`) komplett neu per `GET` an. Standardmäßig verliert der Browser dabei die Scrollposition und springt an den Seitenanfang zurück. Bei längeren Listen oder beim schrittweisen Tippen auf Mengentaster führt das ständige Wegspringen zu starkem Kontrollverlust; ebenso erfordert das Anlegen mehrerer Artikel hintereinander wiederholtes Herunterscrollen zum Formular.
+* **Entscheidung & Umsetzung:**
+  - Jede Tabellenzeile erhält eine semantische Anker-ID (`th:id="'item-' + ${item.id}"`), und der Erfassungsbereich wird über `id="add"` adressiert.
+  - Der Controller leitet nach dem Ändern gezielt auf das entsprechende URI-Fragment weiter (`return "redirect:/#item-" + id;` bzw. beim Anlegen `return "redirect:/#add";`). Der Browser richtet den Viewport dadurch nach dem Neuladen sofort wieder am bearbeiteten Kontext aus.
+  - Zur Orientierung hebt die CSS-Pseudoklasse `tr:target { background-color: #e0f2fe; }` die zuletzt veränderte Zeile dezent hervor, solange das Fragment in der Adresszeile aktiv ist.
+* **Architektur-Kompromiss aus Zeitgründen:**
+  - Die aus Usability-Sicht ideale Lösung für Mengenänderungen an Ort und Stelle wäre eine asynchrone Teilaktualisierung des DOMs via JavaScript (Fetch API / AJAX gemäß Vorlesungskapitel II.2) ohne Neuladen der gesamten Seite.
+  - Aufgrund des engen Zeitfensters der Implementierungsphase wurde bewusst auf clientseitiges Scripting und das damit verbundene synchrone Verwalten von Client- und Server-State verzichtet.

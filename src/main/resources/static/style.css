@@ -11,6 +11,10 @@ body {
 	background-color: #f8fafc
 }
 
+tr:target {
+  background-color: #e0f2fe;
+}
+
 table {
 	border-collapse: collapse;
 	width: 100%;
