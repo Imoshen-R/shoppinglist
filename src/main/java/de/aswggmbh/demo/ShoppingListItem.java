@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Max;
 
 @Entity
 public class ShoppingListItem {
@@ -15,10 +16,11 @@ public class ShoppingListItem {
 	private Long id;
 
 	@NotBlank(message = "Bitte einen Namen eingeben.")
-	@Size(max = 100, message = "Der Name darf höchstens 100 Zeichen enthalten.")
+	@Size(max = 50, message = "Der Name darf höchstens 50 Zeichen enthalten.")
 	private String name;
 
 	@Min(value = 1, message = "Der Bedarf darf nicht kleiner als 1 sein.")
+	@Max(value = 9999, message ="Soviel braucht doch kein Mensch!")
 	private int demand = 1;
 
 	private boolean completed = false;

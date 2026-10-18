@@ -35,14 +35,14 @@
 							<button type="submit" aria-label="Wiederherstellen">&#x21BA</button>
 						</form>
 					</td>
-					<td th:text="${item.name}">Brot</td>
-					<td th:text="${item.demand}">2</td>
+					<td th:classappend="${item.completed} ? 'done' : '' " th:text="${item.name}">Brot</td>
+					<td th:classappend="${item.completed} ? 'done' : '' " th:text="${item.demand}">2</td>
 					<td>
 						<form method="post" th:action="@{/item/{id}/decrease(id=${item.id})}" th:unless="${item.completed}">
 							<button type="submit" aria-label="Menge um eins reduzieren">-</button>
 						</form>
 						<form method="post" th:action="@{/item/{id}/increase(id=${item.id})}" th:unless="${item.completed}">
-							<button type="submit" aria-label="Menge um eins erhöhen">+</button>
+							<button type="submit" th:disabled="${item.demand == 9999}" aria-label="Menge um eins erhöhen">+</button>
 						</form>
 					</td>
 				</tr>
@@ -52,20 +52,19 @@
 			</tbody>
 		</table>
 		<h1 id="add">Artikel hinzufügen</h1>
-		<form method="post" th:action="@{/}" th:object="${shoppingListItem}">
-			<label for="name">Name</label> <input id="name" th:field="*{name}"
-				maxlength="100" required aria-describedby="name-error"> <span
+		<form class="add" method="post" th:action="@{/}" th:object="${shoppingListItem}">
+			<label for="name">Name:</label> <input id="name" th:field="*{name}"
+				maxlength="50" required aria-describedby="name-error"> <span
 				id="name-error" class="error" th:errors="*{name}"></span> <label
-				for="demand">Bedarf</label> <input id="demand" type="number"
-				th:field="*{demand}" min="1" required
+				for="demand">Bedarf:</label> <input id="demand" type="number"
+				th:field="*{demand}" min="1" max="9999" required
 				aria-describedby="demand-error"> <span id="demand-error"
 				class="error" th:errors="*{demand}"></span>
 			<button type="submit">Hinzufügen</button>
 		</form>
-		<p>
-			Das getrennte Servlet-Beispiel liefert unter <a href="/list">/list</a>
-			eine feste JSON-Antwort.
-		</p>
 	</main>
+	<nav>
+		<a href=#list>Zurück zur Liste</a>
+	</nav>
 </body>
 </html>
