@@ -42,7 +42,7 @@ public class ShoppingListController {
 			return "shoppinglist";
 		}
 		repository.save(item);
-		return "redirect:/#add";
+		return "redirect:/?focus#name";
 	}
 
 	@PostMapping("/delete/{id}")

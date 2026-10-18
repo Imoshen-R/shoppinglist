@@ -81,7 +81,8 @@ Dieses Projekt basiert auf dem Starter-Template **`WEB-II-3-Shoppinglist.zip`** 
 
 ### Could-Have (Optionale Erweiterung)
 * **[F-08] Schneller Filter:** Umschalter in der Ansicht, um erledigte/durchgestrichene Artikel bei Bedarf temporär auszublenden.
-* **[F-09] Automatische Sortierung: Erledigte Artikel werden ans Ende der Liste einsortiert. (Neu 18.10.26)
+* **[F-09] Automatische Sortierung:** Erledigte Artikel werden ans Ende der Liste einsortiert. (Neu 18.10.26)
+* **[F-10] Day and Night Anpassung:** Dark Modus Layout wird automatisch verwendet wenn der Client es nutzt (Neu 18.10.26)
 
 ## 3. Anfängliche Design- und Architektur-Entscheidungen
 
@@ -149,3 +150,10 @@ Dieses Projekt basiert auf dem Starter-Template **`WEB-II-3-Shoppinglist.zip`** 
 * **Architektur-Kompromiss aus Zeitgründen:**
   - Die aus Usability-Sicht ideale Lösung für Mengenänderungen an Ort und Stelle wäre eine asynchrone Teilaktualisierung des DOMs via JavaScript (Fetch API / AJAX gemäß Vorlesungskapitel II.2) ohne Neuladen der gesamten Seite.
   - Aufgrund des engen Zeitfensters der Implementierungsphase wurde bewusst auf clientseitiges Scripting und das damit verbundene synchrone Verwalten von Client- und Server-State verzichtet.
+### 4.6 Optimierung der Eingabe von neuen Artikeln
+* **Problem:** Bei der Eingabe von neuen Artikeln muss der Fokus immer manuell wieder auf die Eingabemaske gesetzt werden. Hier ist zusätzlich aufgefallen, dass die Navigationsleiste oben den Fokus nicht direkt setzt.
+* **Entscheidung und Umsetzung:**
+  - *Steuerung über Query-Parameter:* Nach dem Speichern im Controller (`return "redirect:/?focus#name";`) sowie beim Klick in der Navigation (`th:href="@{/(focus)} + '#name'"`) wird der Abfrageparameter `focus` zusammen mit dem Fragment `#name` übergeben
+  - *Bedingtes Rendering:* Das Eingabefeld steuert das Attribut dynamisch über Thymeleaf mittels `th:autofocus="${param.focus != null}"`
+  - *Ergebnis:* Beim normalen Start der Seite bleibt die Tabelle oben sichtbar; nach dem Speichern oder Navigieren springt der Viewport zum Formular und setzt den Eingabecursor ohne clientseitiges JavaScript direkt wieder in das Feld.
+* **Nachteil:** Leider muss dadurch beim Klick in die Navigationsleiste die Seite neu vom Server angefordert werden. Dieser Kompromiss wurde eingegangen um weiterhin aus Zeitgründen auf JavaScript zu verzichten.

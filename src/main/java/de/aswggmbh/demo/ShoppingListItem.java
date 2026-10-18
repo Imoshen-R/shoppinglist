@@ -20,7 +20,7 @@ public class ShoppingListItem {
 	private String name;
 
 	@Min(value = 1, message = "Der Bedarf darf nicht kleiner als 1 sein.")
-	@Max(value = 9999, message ="Soviel braucht doch kein Mensch!")
+	@Max(value = 9999, message = "Soviel braucht doch kein Mensch!")
 	private int demand = 1;
 
 	private boolean completed = false;

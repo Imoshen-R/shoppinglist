@@ -9,7 +9,7 @@
 </head>
 <body>
 	<nav>
-		<a href=#list>Einkaufsliste</a> <a href=#add>Artikel hinzufügen</a>
+		<a href=#list>Einkaufsliste</a> <a th:href="@{/(focus)} + '#name' ">Artikel hinzufügen</a>
 	</nav>
 	<main>
 		<h1 id="list">Einkaufsliste</h1>
@@ -25,24 +25,34 @@
 			<tbody>
 				<tr th:each="item : ${shoppingList}" th:id="'item-' + ${item.id}">
 					<td>
-						<form method="post" th:action="@{/check/{id}(id=${item.id})}" th:unless="${item.completed}">
+						<form method="post" th:action="@{/check/{id}(id=${item.id})}"
+							th:unless="${item.completed}">
 							<button type="submit" aria-label="Als erledigt markieren">&#x2714</button>
 						</form>
-						<form method="post" th:action="@{/delete/{id}(id=${item.id})}" th:if="${item.completed}">
+						<form method="post" th:action="@{/delete/{id}(id=${item.id})}"
+							th:if="${item.completed}">
 							<button type="submit" aria-label="Endgültig löschen">&#x1F5D1</button>
 						</form>
-						<form method="post" th:action="@{/reset/{id}(id=${item.id})}" th:if="${item.completed}">
+						<form method="post" th:action="@{/reset/{id}(id=${item.id})}"
+							th:if="${item.completed}">
 							<button type="submit" aria-label="Wiederherstellen">&#x21BA</button>
 						</form>
 					</td>
-					<td th:classappend="${item.completed} ? 'done' : '' " th:text="${item.name}">Brot</td>
-					<td th:classappend="${item.completed} ? 'done' : '' " th:text="${item.demand}">2</td>
+					<td th:classappend="${item.completed} ? 'done' : '' "
+						th:text="${item.name}">Brot</td>
+					<td th:classappend="${item.completed} ? 'done' : '' "
+						th:text="${item.demand}">2</td>
 					<td>
-						<form method="post" th:action="@{/item/{id}/decrease(id=${item.id})}" th:unless="${item.completed}">
+						<form method="post"
+							th:action="@{/item/{id}/decrease(id=${item.id})}"
+							th:unless="${item.completed}">
 							<button type="submit" aria-label="Menge um eins reduzieren">-</button>
 						</form>
-						<form method="post" th:action="@{/item/{id}/increase(id=${item.id})}" th:unless="${item.completed}">
-							<button type="submit" th:disabled="${item.demand == 9999}" aria-label="Menge um eins erhöhen">+</button>
+						<form method="post"
+							th:action="@{/item/{id}/increase(id=${item.id})}"
+							th:unless="${item.completed}">
+							<button type="submit" th:disabled="${item.demand == 9999}"
+								aria-label="Menge um eins erhöhen">+</button>
 						</form>
 					</td>
 				</tr>
@@ -52,8 +62,10 @@
 			</tbody>
 		</table>
 		<h1 id="add">Artikel hinzufügen</h1>
-		<form class="add" method="post" th:action="@{/}" th:object="${shoppingListItem}">
+		<form class="add" method="post" th:action="@{/}"
+			th:object="${shoppingListItem}">
 			<label for="name">Name:</label> <input id="name" th:field="*{name}"
+				th:autofocus="${param.focus != null}"
 				maxlength="50" required aria-describedby="name-error"> <span
 				id="name-error" class="error" th:errors="*{name}"></span> <label
 				for="demand">Bedarf:</label> <input id="demand" type="number"
