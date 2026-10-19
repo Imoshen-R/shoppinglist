@@ -7,6 +7,41 @@ Dieses Projekt basiert auf dem Starter-Template **`WEB-II-3-Shoppinglist.zip`** 
 * Entität `ShoppingListItem` (Basisattribute) und `ShoppingListItemRepository` (Spring Data JPA Interface).
 * Grundgerüst des `ShoppingListController` mit Methoden zum Laden der Liste und Hinzufügen von Elementen.
 
+## 📌 Executive Summary: Eigenleistung & Qualitätsmerkmale
+
+Dieses Projekt erweitert das minimale Starter-Template `WEB-II-3-Shoppinglist.zip` (Prof. Dr. Andreas Karrenbauer) streng nach der festgelegten Aufgabenstellung *"Wir wollen Einkaufslisten online und auf mobilen Geräten verwalten"*. Anhand von eigener Erfahrung mit der Mobile App *Bring!* wurden praxisnahe User Stories, Features und Architektur-Entscheidungen formuliert. Diese wurden im Laufe des Entwicklungsprozesses mehrfach hinterfragt und erweitert, wodurch ein deutlicher Lernfortschritt dokumentiert wird. Zur Lösung von Problemstellungen und deren Einordnung wurde Gemini 3.8 Flash als Sparringspartner genutzt; dabei wurde jeder Einzelschritt eigenständig nachvollzogen, geprüft und an das Projekt angepasst.
+
+### Kernargumente für die Bewertung (Leistungsnachweis)
+
+Der Schwerpunkt der Eigenleistung lag auf einem konsequenten **Mobile-First-Ansatz**, durchgängiger **Barrierefreiheit** und der Maximierung der **User Experience (UX)** im Rahmen einer serverseitigen Webarchitektur.
+
+Folgende Kernfeatures und Architekturverbesserungen wurden über das Starter-Template hinaus eigenständig realisiert:
+
+* **Item-Lifecycle und Zustandskontrolle:** Einführung eines dedizierten Statusflags (`completed`), wodurch Artikel per Knopfdruck abgehakt, bei Bedarf verlustfrei reaktiviert oder endgültig gelöscht werden können ([Details in Abschnitt 4.1]).
+* **Haptische Mengenanpassung (Stepper):** Einhandbedienbare Plus-/Minus-Taster (`+` / `-`) zur Mengennavigation mit automatischer Statuskopplung (beim Reduzieren von 1 auf 0 wird der Artikel als erledigt markiert) ([Details in Abschnitt 4.1]).
+* **Maßgeschneidertes Mobile-First-Layout:** Vollständiger Verzicht auf externe CSS-Frameworks zugunsten eines schlanken Stylesheets mit Flexbox-Ausrichtung, defensivem Box-Modell (`box-sizing: border-box`) und minimalem Media-Query-Einsatz (`@media (min-width: 35rem)`) für den mobilen Praxiseinsatz ([Details in Abschnitt 4.4]).
+* **Defensive Validierung („Defense in Depth“):** Durchgängige Absicherung gegen fehlerhafte Eingaben und Layout-Sprengungen durch Jakarta Bean Validation (`@Max(9999)`, `@Size(max = 50)`), HTML5-Eingabegrenzen sowie Controller-Prüfungen ([Details in Abschnitt 4.2]).
+* **Barrierefreiheit (Accessibility / a11y):** Vollständige Tastaturbedienbarkeit in logischer Reihenfolge, kontrastreiche Fokusindikatoren via `:focus-visible` und Screenreader-Beschriftung aller grafischen Bedienelemente mittels `aria-label` ([Details in Abschnitt 4.4]).
+* **Orientierung bei langen Listen:** Bereitstellung einer konsistenten Navigationsstruktur (`<nav>`) am Kopf- und Fußende der Seite für schnelle Sprünge zwischen Artikeltabelle und Erfassungsbereich.
+* **Milderung des SSR-Scrollverlusts:** Kompensation des nativen Post-Redirect-Get-Viewport-Resets durch dynamische URI-Fragmente an Tabellenzeilen (`/#item-{id}`) in Kombination mit dezentem Kontext-Highlighting via CSS `:target` ([Details in Abschnitt 4.5]).
+* **Unterbrechungsfreier Erfassungsfluss:** Kontextsensitive Autofokus-Steuerung über den Abfrageparameter `?focus#name` via Thymeleaf (`th:autofocus`), wodurch der Cursor nach dem Anlegen neuer Artikel sowie beim Klick auf die Navigation sofort im Eingabefeld platziert wird ([Details in Abschnitt 4.6]).
+
+---
+
+### Known Issues
+
+* **Viewport-Ausrichtung bei URI-Fragmenten:** Nach einer Mengenänderung positioniert der Browser das Ziel-Element (`#item-{id}`) strikt an der oberen Fensterkante. Befand sich das Element zuvor in der Bildschirmmitte, tritt ein vertikaler Ruck auf. Dieser Orientierungsverlust wird durch die CSS-Hervorhebung `:target` abgemildert, lässt sich im reinen SSR ohne JavaScript jedoch nicht vollständig eliminieren.
+* **Neuladen beim Navigationsfokus:** Da das Setzen des Autofokus deklarativ über serverseitiges Rendering gelöst wurde (`th:href="@{/(focus)} + '#name'"`), löst auch der Klick auf den Navigationslink „Artikel hinzufügen“ einen vollständigen HTTP-GET-Request aus, anstatt den Cursor rein clientseitig im DOM anzusprechen.
+
+---
+
+### Fazit & Architekturausblick
+
+Das Projekt demonstriert, wie weit eine Webanwendung auf Basis von klassischem Server-Side Rendering (SSR) und semantischen Webstandards für mobile Endgeräte optimiert werden kann. Durch die Vielzahl an Interaktionsmöglichkeiten (wie Stepper-Buttons und Status-Toggles) stößt das Post-Redirect-Get-Muster (PRG) jedoch an seine architektonischen Grenzen: Jede einzelne Zustandsänderung erzwingt einen vollen HTTP-Roundtrip, erzeugt Serverlast und schließt eine Offline-Nutzung (z. B. im Supermarkt ohne Mobilfunkempfang) technisch aus.
+
+Eine vollständig flüssige Bedienung ohne Seitenwechsel sowie eine echte Offline-Fähigkeit ließen sich konzeptionell nur durch Client-Side Rendering realisieren. Dieser Ansatz hätte jedoch den Architekturaufwand vervielfacht und eine doppelte Validierungslogik im Front- und Backend erfordert.
+
+Angesichts des vorgegebenen Zeitrahmens stellte die konsequente Ausreizung von SSR in Verbindung mit URI-Fragmenten, Jakarta Bean Validation und standardkonformem CSS den verlässlichsten, robustesten und wartungsärmsten ingenieurmäßigen Kompromiss dar.
 
 # Einkaufslisten-Projekt: Anforderungen, Features & Design
 
