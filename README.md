@@ -32,7 +32,10 @@ Folgende Kernfeatures und Architekturverbesserungen wurden über das Starter-Tem
 
 * **Viewport-Ausrichtung bei URI-Fragmenten:** Nach einer Mengenänderung positioniert der Browser das Ziel-Element (`#item-{id}`) strikt an der oberen Fensterkante. Befand sich das Element zuvor in der Bildschirmmitte, tritt ein vertikaler Ruck auf. Dieser Orientierungsverlust wird durch die CSS-Hervorhebung `:target` abgemildert, lässt sich im reinen SSR ohne JavaScript jedoch nicht vollständig eliminieren.
 * **Neuladen beim Navigationsfokus:** Da das Setzen des Autofokus deklarativ über serverseitiges Rendering gelöst wurde (`th:href="@{/(focus)} + '#name'"`), löst auch der Klick auf den Navigationslink „Artikel hinzufügen“ einen vollständigen HTTP-GET-Request aus, anstatt den Cursor rein clientseitig im DOM anzusprechen.
-
+* **Fehlende Produktiv-Absicherung (Kapitel II.5 / OWASP):** Zugunsten des Demonstrationsfokus fehlen wesentliche Schutzmechanismen für den Produktivbetrieb:
+  - *Zugriffskontrolle:* Keine Authentifizierung oder rollenbasierte Autorisierung; IDs in Pfaden (z. B. `/delete/{id}`) sind frei manipulierbar (*Broken Access Control*).
+  - *Netzwerk & Request-Schutz:* Unverschlüsselte Übertragung (HTTP statt HTTPS/TLS) sowie kein nativer Cross-Site Request Forgery-Schutz mangels `spring-boot-starter-security`.
+  - *Persistenz & Betrieb:* Datenhaltung rein flüchtig im Arbeitsspeicher (H2-In-Memory-Datenbank ohne Ausfallsicherheit/Backup bei fehlendem Audit-Logging und Monitoring.
 ---
 
 ### Fazit & Architekturausblick
